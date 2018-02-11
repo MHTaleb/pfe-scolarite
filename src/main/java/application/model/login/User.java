@@ -27,7 +27,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(
             name = "User.findByCredential", 
-            query = " SELECT e FROM user_table e JOIN FETCH e.user_Profiles WHERE e.password = :password AND ( e.username = :username OR e.email = :username )")
+            query = " SELECT e FROM user_table e LEFT JOIN FETCH e.user_Profiles WHERE e.password = :password AND ( e.username = :username OR e.email = :username )")
 ,    
     @NamedQuery(
             name = "User.getAll", 
@@ -57,7 +57,7 @@ public class User implements Serializable {
 
     
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "profile_id")
+    @JoinColumn(name = "profile_id",referencedColumnName = "user_id")
     private List<Profile> user_Profiles;
     
     public User() {
@@ -118,4 +118,10 @@ public class User implements Serializable {
         
     }
 */
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", user_Profiles=" + user_Profiles + '}';
+    }
+    
 }

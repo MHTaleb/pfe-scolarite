@@ -22,9 +22,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public User connect(String username, String password) {
+        System.out.println("username = "+username);
+        System.out.println("password = "+password);
         User u = loginRepository.findByCredential(username, password);
+        System.out.println(u);
         if (u == null) {
-            return new User(new Long(-1), "none", "none", "none");
+            return new User(new Long(-1), "-1", "-1", "-1");
         }
         return u;
     }
@@ -40,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
             user.setUsername(username);
             loginRepository.save(user);
         } catch (Exception e) {
-            return new User(new Long(-1), "none", "none", "none");
+            return new User(new Long(-1), "-1", "-1", "-1");
         }
 
         return user;

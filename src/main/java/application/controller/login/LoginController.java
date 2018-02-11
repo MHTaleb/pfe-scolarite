@@ -42,19 +42,31 @@ public class LoginController {
     }
     
     
-    @RequestMapping({"/login"})
+    @RequestMapping({"/login","/"})
     public String loginPage(Model model){
         model.addAttribute("userForm", new UserForm());
         return "login/index";
     }
 
+    @RequestMapping({"/login/error"})
+    public String loginPageError(Model model){
+        model.addAttribute("userForm", new UserForm());
+        return "redirect:/";
+    }
+
     @RequestMapping(path = "/login/connect",method = RequestMethod.POST)
     public String doLogin(UserForm userForm,Model model){
+        
+        
+        System.out.println("starting registration ....");
+        System.out.println("user  : "+userForm.getUsername());
+        System.out.println("email : "+userForm.getEmail());
+        System.out.println("password : "+userForm.getPassword());
         
         User connected = loginService.connect(userForm.getUsername(), userForm.getPassword());
         if (connected.getUsername().equals("-1")) {
             model.addAttribute("login_error_message",login_error_message);
-            return "redicrect:login/index";
+            return "/login/index";
         }else{
             model.addAttribute("current_user", connected);
             return "redirect:ladingpage/home";

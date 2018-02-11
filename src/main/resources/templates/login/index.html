@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title th:text="#{login.title}">Panel de connexion</title>
+        <title >[[#{login.title}]]</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,9 +13,10 @@
         
         <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
         <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
-        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' >
 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet"  href="style.css">
+        <link rel="stylesheet"  href="../style.css">
 
 
     </head>
@@ -49,6 +50,8 @@
                 </div>
                 
             </form>
+            <br>
+            <p style=" color: #EF3B3A;  text-decoration: none;">[[${login_error_message}]]</p>
         </div>
         <video id="video" autoplay="autoplay" loop="loop" poster="polina.jpg">
             <source src="http://andytran.me/A%20peaceful%20nature%20timelapse%20video.mp4" type="video/mp4"/>

@@ -7,6 +7,7 @@ package application.repositories.login;
 
 import application.model.login.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LoginRepository extends CrudRepository<User, Long>{
-    public User findByCredential(String username, String password);
+    public User findByCredential(@Param("username") String username,@Param("password")  String password);
 }
