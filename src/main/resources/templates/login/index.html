@@ -7,15 +7,16 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        
+        <link rel="stylesheet" th:href="@{~/www.w3schools.com_w3css_4_w3.css}">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" th:href="@{~/cdnjs.cloudflare.com_ajax_libs_meyer-reset_2.0_reset.min.css}">
         
         <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
         <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
-        <link rel='stylesheet prefetch'  th:href='@{maxcdn.bootstrapcdn.com_font-awesome_4.3.0_css_font-awesome.min.css}' >
+        <link rel='stylesheet prefetch'  th:href='@{~/maxcdn.bootstrapcdn.com_font-awesome_4.3.0_css_font-awesome.min.css}' >
 
-        <link rel="stylesheet"  th:href="@{style.css}">
+        <link rel="stylesheet"  th:href="@{~/style.css}">
 
 
     </head>
@@ -29,8 +30,8 @@
             </div>
         </div>
         <div class="form" style="max-width: 320px" >
-            <div class="thumbnail"><img th:src="@{hat.svg}"/></div>
-            <form  class="register-form" th:object="${userForm}" th:action="@{/login/register}" method="post">
+            <div class="thumbnail"><img th:src="@{~/hat.svg}"/></div>
+            <form  class="register-form" th:object="${userForm}" th:action="@{~/login/register}" method="post">
                 <input type="hidden" th:field="*{id}"  />
                 <input type="text"  th:placeholder="#{login.user}" th:field="*{username}"  placeholder="name"/>
                 <input type="password" th:placeholder="#{login.password}" th:field="*{password}" placeholder="password"/>
@@ -38,7 +39,7 @@
                 <button type="submit" th:text="#{login.register}" >create</button>
                 <p  class="message">[[#{login.registred.question}]] <a  href="#">[[#{login.signin}]]</a></p>
             </form>
-            <form class="login-form" th:object="${userForm}" th:action="@{/login/connect}" method="post" style="max-width: 320px">
+            <form class="login-form" th:object="${userForm}" th:action="@{~/login/connect}" method="post" style="max-width: 320px">
                 <input type="text"  th:placeholder="#{login.user}"  th:field="*{username}"  placeholder="username"/>
                 <input type="password" th:placeholder="#{login.password}" th:field="*{password}"  placeholder="password"/>
                 <button type="submit" th:text="#{login.signin}" >login</button>
@@ -55,11 +56,11 @@
         <video id="video" autoplay="autoplay" loop="loop" poster="polina.jpg">
             <source src="http://andytran.me/A%20peaceful%20nature%20timelapse%20video.mp4" type="video/mp4"/>
         </video>
-        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script th:src='@{~/cdnjs.cloudflare.com_ajax_libs_jquery_2.1.3_jquery.min.js}'></script>
 
 
 
-        <script  src="index.js"></script>
+        <script  th:src="@{~/index.js}"></script>
 
 
 
