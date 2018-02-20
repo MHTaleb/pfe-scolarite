@@ -69,12 +69,11 @@ public class LoginController {
             return "/login/index";
         }else{
             model.addAttribute("current_user", connected);
-            return "redirect:ladingpage/home";
+            return "/home/start_page";
         }
     }
    
-    @Autowired
-    private UserFormToUser formToUser;
+  
 
     @RequestMapping(path = "/login/register",method = RequestMethod.POST)
     public String doRegister(UserForm userForm,Model model){
@@ -89,11 +88,11 @@ public class LoginController {
         if (registred.getUsername().equals("-1")) {
             model.addAttribute("register_error_message",register_error_message);
             System.out.println("starting registration ....");
-            return "redicrect:login/index";
+            return "redicrect:/";
         }else{
             model.addAttribute("current_user", registred);
             System.out.println("starting registration ....");
-            return "redirect:ladingpage/home";
+            return "/home/start_page";
         }
     }
    
