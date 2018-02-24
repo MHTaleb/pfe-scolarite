@@ -22,6 +22,14 @@ import javax.persistence.OneToMany;
 /**
  *
  * @author taleb
+ * 
+ * cette entity contien des requete nomé , @NamedQueries et @NamedQuery
+ * l idée est simple spring data nous permet de creer une liste de requete @NamedQueries et y ajouter des  requetes
+ * @NamedQuery
+ * chaque @NamedQuery a deux champ obligatoir (name et query)
+ * name est le nom de la requete qui dois etre unique par convention on nomme : Class.leNomDeRequete
+ * query contient la requete ecrite en hql (hibernate query langage) ou jpql (java persistence query langage)
+ * 
  */
 @Entity(name = "user_table")
 @NamedQueries({
@@ -42,7 +50,7 @@ import javax.persistence.OneToMany;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // pour generer le id depuis un sequenceur 
     @Column(name = "user_id")
     private Long id;
 
@@ -56,8 +64,17 @@ public class User implements Serializable {
     private String email;
 
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id",referencedColumnName = "user_id")
+    @OneToMany(fetch = FetchType.LAZY) // 1-->n  FetchTypeLazy : ne pas ramener les profil sauf si je demande par code avec la methode getUser_Profiles
+    /**
+     * les relation 1-->n genere des tables de relation
+     * dans ce cas on dois specifier les clé de jointure dans ses table
+     * @joinColumn sert a ce bute
+     * avec l attribu name on va specifier la clé dans la table n
+     * avec l attribut referencedColumnName on va specifeir la clé de la table 1
+     * 1(user) ---> n(profil)
+     *  user_id ---> profile_id
+     */
+    @JoinColumn(name = "profile_id",referencedColumnName = "user_id") 
     private List<Profile> user_Profiles;
     
     public User() {

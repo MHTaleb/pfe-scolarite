@@ -14,6 +14,23 @@ import javax.persistence.Id;
 /**
  *
  * @author taleb
+ * 
+ * l entité profile
+ * pour qu une class devienne une entité on a besoin en minimum de 
+ * 
+ * @Entity cela va dire a spring que cela est une entité
+ * 
+ * @Id avant un champ pour dire que j ai un id dans cette entité
+ * 
+ * spring data nous donne d autre anotation
+ * 
+ * @Basic pour declarer un champ normal
+ * 
+ * @OneToOne,OneToMany,ManyToMany,ManyToOne pour creer des relation d ordre de 1-->1 1-->n  n-->n    n-->1
+ * 
+ * ce genre de  class doit etre un POJO (plain old java object ) cela veux dire des champs privé
+ * avec des accesseur et de muttateur et deux constructeur 1:vide 2:plain
+ * 
  */
 
 @Entity(name = "profile")

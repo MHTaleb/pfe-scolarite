@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 /**
  *
  * @author taleb
+ * 
+ * entité des salles
  */
 
 @NamedQueries({

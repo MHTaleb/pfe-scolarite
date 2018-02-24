@@ -8,12 +8,19 @@ package application.form.adapter.login;
 /**
  *
  * @author taleb
+ * 
+ * on appel cette class un DTO : Data Transfert Object elle aide spring a communiquer avec les formulaire 
+ * html et les convertir en objet de class grace a thymleaf 
+ * 
+ * la condition : les noms de variable dans cette class doit etre les meme que les nom des champ de formulaire (th:field)
+ * 
  */
 public class UserForm {
 
 
     private Long id;
-
+    
+    // <input type="text"  th:placeholder="#{login.user}" th:field="*{username}"  placeholder="name"/>
     private String username;
 
     private String password;

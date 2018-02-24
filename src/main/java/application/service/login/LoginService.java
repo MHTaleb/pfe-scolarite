@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 /**
  *
  * @author taleb
+ * 
+ * une simple interface qui va contenir nos methode de login et register
+ * 
+ * @component aide spring a reconnaitre  cette class
+ * 
  */
 @Component
 public interface LoginService {

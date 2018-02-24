@@ -14,6 +14,13 @@ import org.springframework.util.StringUtils;
 /**
  *
  * @author taleb
+ * 
+ * cette class a comme objectif de nous permetre la conversion entre deux type de class
+ * UserForm : qui a comme role de servir la partie web
+ * User : qui est une entity qui sert la partie bdd
+ * 
+ * ici on converti le formulaire en entité
+ * 
  */
 @Component
 public class UserFormToUser implements Converter<UserForm, User>{
