@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -64,18 +65,8 @@ public class User implements Serializable {
     private String email;
 
     
-    @OneToMany(fetch = FetchType.LAZY) // 1-->n  FetchTypeLazy : ne pas ramener les profil sauf si je demande par code avec la methode getUser_Profiles
-    /**
-     * les relation 1-->n genere des tables de relation
-     * dans ce cas on dois specifier les clé de jointure dans ses table
-     * @joinColumn sert a ce bute
-     * avec l attribu name on va specifier la clé dans la table n
-     * avec l attribut referencedColumnName on va specifeir la clé de la table 1
-     * 1(user) ---> n(profil)
-     *  user_id ---> profile_id
-     */
-    @JoinColumn(name = "profile_id",referencedColumnName = "user_id") 
-    private List<Profile> user_Profiles;
+    @OneToOne(targetEntity = Profile.class) // 1-->n  FetchTypeLazy : ne pas ramener les profil sauf si je demande par code avec la methode getUser_Profiles
+    private Profile user_Profiles;
     
     public User() {
     }
@@ -87,13 +78,15 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<Profile> getUser_Profile() {
+    public void setUser_Profiles(Profile user_Profiles) {
+        this.user_Profiles = user_Profiles;
+    }
+
+    public Profile getUser_Profiles() {
         return user_Profiles;
     }
 
-    public void setUser_Profile(List<Profile> user_Profile) {
-        this.user_Profiles = user_Profile;
-    }
+    
     
     public String getEmail() {
         return email;

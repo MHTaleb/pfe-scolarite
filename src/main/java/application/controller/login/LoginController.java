@@ -6,7 +6,10 @@
 package application.controller.login;
 
 import application.form.adapter.login.UserForm;
+import application.model.login.Profile;
+import application.model.login.ProfileType;
 import application.model.login.User;
+import application.repositories.login.SalleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import application.service.login.LoginService;
 import application.service.login.LoginServiceImpl;
+import application.service.mail.ContactMail;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
@@ -71,28 +75,48 @@ public class LoginController {
         // userForm est le post du formulaire de connexion
         
         //appeler la methode connect du service
-        User connected = loginService.connect(userForm.getUsername(), userForm.getPassword());
+        connected = loginService.connect(userForm.getUsername(), userForm.getPassword());
         if (connected.getUsername().equals("-1")) { // si la methode retourne un objet contennant -1 connexion echouer
             model.addAttribute("login_error_message",login_error_message);//preparé le message d erreur pour la page
             return "/login/index";// rediriger vers la meme page mais cette fois avec un message d erreur en plus
         }else{//connexion reussie
+            final Profile profile = new Profile();
+            profile.setProfileType(ProfileType.ENSEIGNANT);
+            connected.setUser_Profiles(profile);
+            
+            model.addAttribute("contactMail", new ContactMail());// envoyé l'utilisateur en cours a la nouvelle page
             model.addAttribute("current_user", connected);// envoyé l'utilisateur en cours a la nouvelle page
             return "/home/start_page";// redirection vers la page d acceuil start_page.html
         }
     }
    
+    private static User connected;
+
+    public static User getConnected() {
+        return connected;
+    }
   
+    
+    @Autowired
+    private SalleRepository salleRepository;
+    
     //La methode qui va etre appeler en cas d enregistrement d  un nouveau utilisateur
     @RequestMapping(path = "/login/register",method = RequestMethod.POST)
     public String doRegister(UserForm userForm,Model model){
         // appeler la methode qui ajoute un utilisateur : loginService.register
-        User registred = loginService.register(userForm.getUsername(), userForm.getEmail(), userForm.getPassword());
+        connected = loginService.register(userForm.getUsername(), userForm.getEmail(), userForm.getPassword());
         
-        if (registred.getUsername().equals("-1")) {// si l ajout a achouer on retourne a la page de connection
+        if (connected.getUsername().equals("-1")) {// si l ajout a achouer on retourne a la page de connection
             model.addAttribute("register_error_message",register_error_message);// ajouter un message d erreur
             return "/login/index";// index.html
         }else{
-            model.addAttribute("current_user", registred); // ajouter l utilisateur connecter en cours a la page d acceuil
+            final Profile profile = new Profile();
+            profile.setProfileType(ProfileType.ENSEIGNANT);
+            connected.setUser_Profiles(profile);
+            
+            model.addAttribute("salles", salleRepository.findAll() );// envoyé l'utilisateur en cours a la nouvelle page
+            model.addAttribute("contactMail", new ContactMail());// envoyé l'utilisateur en cours a la nouvelle page
+            model.addAttribute("current_user", connected); // ajouter l utilisateur connecter en cours a la page d acceuil
             return "/home/start_page";//aller a la page d'acceuil
         }
     }

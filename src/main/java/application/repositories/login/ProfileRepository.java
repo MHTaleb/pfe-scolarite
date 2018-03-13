@@ -5,7 +5,7 @@
  */
 package application.repositories.login;
 
-import application.model.salle.Salle;
+import application.model.login.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author taleb
  */
 @Repository
-public interface SalleRepository extends CrudRepository<Salle, Long>{
+public interface ProfileRepository extends CrudRepository<Profile, Long>{
     
 }

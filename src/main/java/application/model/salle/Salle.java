@@ -34,14 +34,27 @@ public class Salle implements Serializable  {
     
     @Basic
     private String nomSalle;
+    
+    @Basic
+    private Long capacite;
 
     public Salle() {
     }
 
-    public Salle(Long id, String nomSalle) {
+    public Salle(Long id, String nomSalle, Long capacite) {
         this.id = id;
         this.nomSalle = nomSalle;
+        this.capacite = capacite;
     }
+
+    public Long getCapacite() {
+        return capacite;
+    }
+
+    public void setCapacite(Long capacite) {
+        this.capacite = capacite;
+    }
+    
     
     public Long getId() {
         return id;
