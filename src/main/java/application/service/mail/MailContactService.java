@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author taleb
+ * 
+ * service de mail qui se sert de spring data mail afin d envoyer un mail a la boite de l admin contenant ce que
+ * veux l utilisateur
  */
 @Service
 public class MailContactService {

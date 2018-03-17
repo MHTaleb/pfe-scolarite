@@ -75,7 +75,9 @@ public class LoginController {
         // userForm est le post du formulaire de connexion
         
         //appeler la methode connect du service
+        
         connected = loginService.connect(userForm.getUsername(), userForm.getPassword());
+        
         if (connected.getUsername().equals("-1")) { // si la methode retourne un objet contennant -1 connexion echouer
             model.addAttribute("login_error_message",login_error_message);//preparé le message d erreur pour la page
             return "/login/index";// rediriger vers la meme page mais cette fois avec un message d erreur en plus

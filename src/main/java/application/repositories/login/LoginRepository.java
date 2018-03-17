@@ -6,6 +6,7 @@
 package application.repositories.login;
 
 import application.model.login.User;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,5 @@ public interface LoginRepository extends CrudRepository<User, Long>{
      *        WHERE e.password = :password AND ( e.username = :username OR e.email = :username )")
      *  ici on indique que String username est le meme paramaitre :username dans la requete
      */
-    public User findByCredential(@Param("username") String username,@Param("password")  String password);
+    public List<User> findByCredential(@Param("username") String username,@Param("password")  String password);
 }

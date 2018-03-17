@@ -8,38 +8,38 @@ package application.model.reservation;
 import application.model.login.User;
 import application.model.salle.Salle;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
 
 /**
  *
  * @author taleb
+ * 
+ * entité des reservation 
+ * 
+ * on defini une reservation par une relation entre un utilisateur et une salle dans une periode definie
+ * 
+ * 
  */
 
-@NamedQueries({
-    @NamedQuery(name = "Reservation.chercherReservation",
-                query = "SELECT e.salle.id FROM Reservation e WHERE e.dateDebut > :dateFin OR e.dateFin < :dateDebut ")
-})
 
 @Entity
 public class Reservation implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateDebut;
+    private LocalDate dateDebut;
 
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateFin;
+    private LocalDate dateFin;
 
     @OneToOne(targetEntity = User.class)
     private User reserveur;
@@ -50,12 +50,28 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(Date dateDebut, Date dateFin, User reserveur, Salle salle, Long id) {
+    public Reservation(Long id, LocalDate dateDebut, LocalDate dateFin, User reserveur, Salle salle) {
+        this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.reserveur = reserveur;
         this.salle = salle;
-        this.id = id;
+    }
+
+    public LocalDate getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDate dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
     }
 
     public User getReserveur() {
@@ -80,22 +96,6 @@ public class Reservation implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
     }
 
 }

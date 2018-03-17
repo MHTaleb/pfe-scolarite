@@ -1,135 +1,146 @@
 <!DOCTYPE html>
 <html>
-<title>Université Abou Bakr belkaid</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" th:href="@{~/www.w3schools.com_w3css_4_w3.css}">
-<style>
-body {font-family: "Times New Roman", Georgia, Serif;}
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Playfair Display";
-    letter-spacing: 5px;
-}
-</style>
-<body>
+    <title>Université Abou Bakr belkaid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="stylesheet" th:href="@{~/www.w3schools.com_w3css_4_w3.css}">
+    <style>
+        body {
+            background-image: url(/back.jpg)  ;
+            background-size: 1.7%;
+            background-repeat: repeat;
+            font-family: "Times New Roman", Georgia, Serif;}
+        h1,h2,h3,h4,h5,h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        input{
+            background: transparent;
+        }
+    </style>
+    <body class="w3-light-gray">
 
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
-      <a href="#home" class="w3-bar-item w3-button"><b>SGS :</b> Systeme de gestion de salle</a>  
-    <!-- Right-sided navbar links. Hide them on small screens -->
-    <div  class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">A propos</a>
-      <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ADMIN }"
-         href="#menu" class="w3-bar-item w3-button">salles</a>
-      <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ENSEIGNANT }"
-         href="#reserver_salle" class="w3-bar-item w3-button">Reserver une salles</a>
-      <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ADMIN }"
-         href="#menu" class="w3-bar-item w3-button">profiles</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contacte</a>
-    </div>
-  </div>
-</div>
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-blue-gray w3-padding w3-card-4" style="letter-spacing:4px;">
+                <a href="#home" class="w3-bar-item w3-button"><b>SGS :</b> Systeme de gestion de salle</a>  
+                <!-- Right-sided navbar links. Hide them on small screens -->
+                <div  class="w3-right w3-hide-small">
+                    <a href="#about" class="w3-bar-item w3-button">A propos</a>
+                    <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ADMIN }"
+                       href="#menu" class="w3-bar-item w3-button">salles</a>
+                    <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ENSEIGNANT }"
+                       href="#reserver_salle" class="w3-bar-item w3-button">Reserver une salles</a>
+                    <a th:if="${current_user.user_Profiles.profileType == T(application.model.login.ProfileType).ADMIN }"
+                       href="#menu" class="w3-bar-item w3-button">profiles</a>
+                    <a href="#contact" class="w3-bar-item w3-button">Contacte</a>
+                </div>
+            </div>
+        </div>
 
-<!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
-    <img class="w3-image" th:src="@{~/WallP1.jpg}" alt="Hamburger Catering" width="1600" height="800">
-  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
-    <h1 class="w3-xxlarge">Le Catering</h1>
-  </div>
-</header>
+        <!-- Header -->
+        <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
+            <img class="w3-image" th:src="@{~/WallP1.jpg}" alt="Hamburger Catering" width="1600" height="800">
+            <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+                <h1 class="w3-xxlarge"></h1>
+            </div>
+        </header>
 
-<!-- Page content -->
-<div class="w3-content" style="max-width:1100px">
+        <!-- Page content -->
+        <div class="w3-content " style="max-width:1100px">
 
-  <!-- About Section -->
-  <div class="w3-row w3-padding-64" id="about">
-    <div class="w3-col m6 w3-padding-large w3-hide-small">
-     <img th:src="@{~/BeFunky Collage salles.jpg}" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750">
-    </div>
+            <!-- About Section -->
+            <div class="w3-row w3-padding-64" id="about">
+                <div class="w3-col m6 w3-padding-large w3-hide-small">
+                    <img th:src="@{~/BeFunky Collage salles.jpg}" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750">
+                </div>
 
-    <div class="w3-col m6 w3-padding-large">
-      <h1 class="w3-center">Université Abou Bakr Belkaid</h1><br>
-      <h5 class="w3-center">Tradition depuis 1989</h5>
-      <p class="w3-large">L’université Abou Bekr Belkaid Tlemcen est une université située à Tlemcen en Algérie. Elle a été créée par le décret de 1989 et compte huit facultés réparties autour de plusieurs pôles à travers la Wilaya de Tlemcen.
+                <div class="w3-col m6 w3-padding-large">
+                    <h1 class="w3-center">Université Abou Bakr Belkaid</h1><br>
+                    <h5 class="w3-center">Tradition depuis 1989</h5>
+                    <p class="w3-large">L’université Abou Bekr Belkaid Tlemcen est une université située à Tlemcen en Algérie. Elle a été créée par le décret de 1989 et compte huit facultés réparties autour de plusieurs pôles à travers la Wilaya de Tlemcen.
 
-Elle est classée par le U.S. News & World Report au 75e rang du classement régional 2016 des universités arabes</p>
-      <p class="w3-large w3-text-grey w3-hide-medium">Je m’adresse également à toutes nos étudiantes et à tous nos étudiants pour s’investir et exceller dans l’acquisition d’un savoir véritable et des compétences scientifiques reconnues. Je remercie nos partenaires du secteur socio-économique de la région pour l’intérêt qu’ils portent à notre Université etparticulièrement à notre Faculté, je compte énormément sur eux pour nous accompagner afin de pouvoir progresser et
-rayonner à l’échelle nationale et internationale. En ce qui me concerne, je n’épargnerai aucun effort pour faire en sorte que notre Faculté devienne un pôle d’excellence scientifique au niveau national et international.
+                        Elle est classée par le U.S. News & World Report au 75e rang du classement régional 2016 des universités arabes</p>
+                    <p class="w3-large w3-text-grey w3-hide-medium">Je m’adresse également à toutes nos étudiantes et à tous nos étudiants pour s’investir et exceller dans l’acquisition d’un savoir véritable et des compétences scientifiques reconnues. Je remercie nos partenaires du secteur socio-économique de la région pour l’intérêt qu’ils portent à notre Université etparticulièrement à notre Faculté, je compte énormément sur eux pour nous accompagner afin de pouvoir progresser et
+                        rayonner à l’échelle nationale et internationale. En ce qui me concerne, je n’épargnerai aucun effort pour faire en sorte que notre Faculté devienne un pôle d’excellence scientifique au niveau national et international.
 
-<br>Doyen de la Faculté S.N.V/S.T.U
-LAHFA Farid B</p>
-    </div>
-  </div>
-  
-  <hr>
-  
-  <!-- Menu Section -->
-  <div class="w3-row w3-padding-64" id="menu">
-    <div class="w3-col l6 w3-padding-large">
-      <h1 class="w3-center">Our Menu</h1><br>
-      <h4>Bread Basket</h4>
-      <p class="w3-text-grey">Assortment of fresh baked fruit breads and muffins 5.50</p><br>
-    
-      <h4>Honey Almond Granola with Fruits</h4>
-      <p class="w3-text-grey">Natural cereal of honey toasted oats, raisins, almonds and dates 7.00</p><br>
-    
-      <h4>Belgian Waffle</h4>
-      <p class="w3-text-grey">Vanilla flavored batter with malted flour 7.50</p><br>
-    
-      <h4>Scrambled eggs</h4>
-      <p class="w3-text-grey">Scrambled eggs, roasted red pepper and garlic, with green onions 7.50</p><br>
-    
-      <h4>Blueberry Pancakes</h4>
-      <p class="w3-text-grey">With syrup, butter and lots of berries 8.50</p>    
-    </div>
-    
-    <div class="w3-col l6 w3-padding-large">
-      <img src="tablesetting.jpg" class="w3-round w3-image w3-opacity-min" alt="Menu" style="width:100%">
-    </div>
-  </div>
+                        <br>Doyen de la Faculté S.N.V/S.T.U
+                        LAHFA Farid B</p>
+                </div>
+            </div>
+            
+            <div id="reserver_salle">
+            <br/>
+            <br/>
+            <br/>
+                
+            <div class="w3-container w3-padding-32 w3-card-4" >
+                <header>
+                    <h2 class="w3-text-dark-gray" >Resrvation de salle</h2>
+                    <h6 class="w3-border-bottom w3-border-blue-gray"></h6>
+                    <p> Chere utilisateur afin de reserver une salle, nous vous prions de bienvouloir preciser la date de debut de reservation ainsi la date de fin cela va nous permettre de vous proposez
+                    un ensemble de salle disponible celon vos besoin. <br/>
+                    une fois les dates introduite nous vous prions de bien vouloir cliquer sur le bouton <b>rechercher une salle disponible</b> un autre fomulaire va etre afficher contenant la liste des salles reservable
+                    <br/>Merci</p>
+                    <br/>
+                </header>
+                <form id="reserver_salle_form" class="w3-margin" method="POST">
+                    <p><input class="w3-input w3-light-gray  w3-margin-left  w3-padding-16" style="width: 95%;" id="dateDebut" type="text" required placeholder="Date début" onblur="if(this.value===''){this.type='text';}" onfocus="(this.type='date')"> </p>
+                    <p><input class="w3-input w3-light-gray w3-margin-left  w3-padding-16" style="width: 95%;" id="dateFin" type="text" required placeholder="Date fin" onblur="if(this.value===''){this.type='text';}" onfocus="(this.type='date')"></p>
+                    <br/>
+                    <p><button id="searchSalle" type="submit" class="w3-button w3-blue-grey w3-section" >[[#{homePage.rechercherSalle}]]</button></p>
+                </form>
+            </div>
+            </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
 
-  <hr>
+            <div id="id01" class="w3-modal">
+                
+                <div id="salleList" class="w3-container w3-modal-content">
 
-    <div class="w3-container w3-padding-64" id="reserver_salle">
-      <h1>Resrvation de salle</h1><br>
-      <form id="reserver_salle_form" th:object="${contactMail}" method="post" target="_blank">
-          <p><input class="w3-input w3-padding-16" id="dateDebut" type="date" required placeholder="Date début"></p>
-          <p><input class="w3-input w3-padding-16" id="dateFin" type="date" required placeholder="Date fin"></p>
-          <p>
-              <select class="w3-select" id="selection_salle" name="listSalle">
-              <option th:each="salle : ${salles}" th:text="${salle.nomSalle}" th:value="${salle.nomSalle}" th:itemid="${salle.id}"></option>
-             </select>
-              
-          </p>
-        <p><button class="w3-button w3-light-grey w3-section" type="submit">[[#{homePage.envoyer}]]</button></p>
-      </form>
-    </div>
-  
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div id="contact"></div>
+            <br/>
+            <br/>
+            <br/>
+                
+            <div class="w3-container w3-padding-32 w3-card-4" >
+                <h2 class="w3-text-dark-gray " >Contact</h2>
+                <h6 class="w3-border-bottom w3-border-blue-gray"></h6>
+                <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste. Do not hesitate to contact us.</p>
+                <p class="w3-text-blue-grey w3-large"><b>Catering Service, 42nd Living St, 43043 New York, NY</b></p>
+                <p>You can also contact us by phone 00553123-2323 or email catering@catering.com, or you can send us a message here:</p>
+                <form id="send_mail" method="POST" >
+                    <p><input class="w3-input w3-light-gray w3-padding-16" id="nom" type="text" th:placeholder="#{homePage.nom}" required name="nom"></p>
+                    <p><input class="w3-input w3-light-gray w3-padding-16" id="prenom" type="text" th:placeholder="#{homePage.prenom}" required name="prenom"></p>
+                    <p><textarea class="w3-input w3-light-gray w3-padding-16" id="message" type="text" style="height: 150px;" th:placeholder="#{homePage.message}" required name="message"></textarea>
+                    <p><button id="sendmailbutton"  class="w3-button w3-blue-grey w3-section" type="submit">[[#{homePage.envoyer}]]</button></p>
+                </form> 
+            </div>
 
-    <div class="w3-container w3-padding-64" id="contact">
-      <h1>Contact</h1><br>
-      <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste. Do not hesitate to contact us.</p>
-      <p class="w3-text-blue-grey w3-large"><b>Catering Service, 42nd Living St, 43043 New York, NY</b></p>
-      <p>You can also contact us by phone 00553123-2323 or email catering@catering.com, or you can send us a message here:</p>
-      <form id="send_mail" th:object="${contactMail}" method="post" target="_blank">
-        <p><input class="w3-input w3-padding-16" id="nom" type="text" th:field="*{nom}" th:placeholder="#{homePage.nom}" required name="nom"></p>
-        <p><input class="w3-input w3-padding-16" id="prenom" type="text" th:field="*{prenom}" th:placeholder="#{homePage.prenom}" required name="prenom"></p>
-        <p><textarea class="w3-input w3-padding-16" id="message" type="text" th:field="*{message}" style="height: 250px;" th:placeholder="#{homePage.message}" required name="message"></textarea>
-        <p><button class="w3-button w3-light-grey w3-section" type="submit">[[#{homePage.envoyer}]]</button></p>
-      </form>
-    </div>
-  
-<!-- End page content -->
-</div>
-<script type="text/javascript"
+            <!-- End page content -->
+        </div>
+            <br/>
+            <br/>
+            <br/>
+        <script type="text/javascript"
         th:src="@{~/cdnjs.cloudflare.com_ajax_libs_jquery_2.1.3_jquery.min.js}"></script>
 
-<script type="text/javascript" th:src="@{~/js/start_page.js}"></script>
-<!-- Footer -->
-<footer class="w3-center w3-light-grey w3-padding-32">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-</footer>
+        <script type="text/javascript" th:src="@{~/js/start_page.js}"></script>
+        
 
-</body>
+    </body>
 </html>

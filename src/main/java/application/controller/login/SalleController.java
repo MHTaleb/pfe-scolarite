@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 /**
  *
  * @author taleb
+ * 
+ * controlleur de la page de gestion des salle
+ * pas encore implementer
  */
 @Controller
 @PropertySource(ignoreResourceNotFound = true , value = "classpath:messages.properties")

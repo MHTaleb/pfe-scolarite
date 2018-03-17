@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 /**
  *
  * @author taleb
+ * 
+ * class qui represente la structure du Json envoyer depuis le formualire clien vers le serveur pour l envoi d u mail 
+ * 
  */
 @Component
 public class ContactMail {

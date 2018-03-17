@@ -8,6 +8,7 @@ package application.service.login;
 import application.model.login.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import application.repositories.login.LoginRepository;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public User connect(String username, String password) {
         // appeller la requete nomé qui permet la connexion
-        User u = loginRepository.findByCredential(username, password);
+        List<User> u = loginRepository.findByCredential(username, password);
         
         //si l utilisateur n existe pas
         if (u == null) {
@@ -35,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
             return new User(new Long(-1), "-1", "-1", "-1");
         }
         //sinon on va retourné l utilisateur trouver avec l appel de la requete nomé
-        return u;
+        return u.get(0);
     }
 
     //logique d enregistrement d un nouveau utilisateur
@@ -48,7 +49,14 @@ public class LoginServiceImpl implements LoginService {
             user.setEmail(email);//mettre le email ...
             user.setPassword(password);
             user.setUsername(username);
-            loginRepository.save(user);// enregistrer l objet dans la bdd
+            List<User> users = loginRepository.findByCredential(username, password);
+            if(users.isEmpty()){
+                loginRepository.save(user);
+            }else{
+                return users.get(0);
+            }
+            // enregistrer l objet dans la bdd
+
         } catch (Exception e) {
             return new User(new Long(-1), "-1", "-1", "-1"); // en cas d erreur on retourn un objet -1
         }
