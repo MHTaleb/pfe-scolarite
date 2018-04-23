@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <title>Université Abou Bakr belkaid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="stylesheet" th:href="@{~/www.w3schools.com_w3css_4_w3.css}">
+    <style>
+        body {
+            background-image: url(/back.jpg)  ;
+            background-size: 1.7%;
+            background-repeat: repeat;
+            font-family: "Times New Roman", Georgia, Serif;}
+        h1,h2,h3,h4,h5,h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        input{
+            background: transparent;
+        }
+    </style>
+    <body class="w3-light-gray">
+
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-blue-gray w3-padding w3-card-4" style="letter-spacing:4px;">
+                <a href="#home" class="w3-bar-item w3-button"><b>SGS :</b> Systeme de gestion de salle</a>  
+                <!-- Right-sided navbar links. Hide them on small screens -->
+                <div  class="w3-right w3-hide-small">
+                    <a href="#sallesSection" class="w3-bar-item w3-button">Salles</a>
+                    <a href="#reserver_salle" class="w3-bar-item w3-button">Rendez-Vous</a>
+                    <a href="#profilesSection" class="w3-bar-item w3-button">Profiles</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Page content -->
+
+        <div class="w3-content w3-margin-top" style="max-width:1100px">
+
+            <!-- salles section -->
+            <div id="sallesSection" ></div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div  class="w3-container w3-padding-32 w3-card-4" >
+                <header>
+                    <h2 class="w3-text-dark-gray" >Liste de salle</h2>
+                     <ul id="salleListView" class="w3-ul w3-card-4" style="max-height: 500px;overflow:scroll;overflow-y:auto;overflow-x:hidden;">
+                        <input placeholder="rechercher" class=" w3-input " id="searchSalleValue" onkeyup="searchSalle()" />
+                        <li th:each="salle : ${salles}" class="w3-display-container" >&nbsp;&nbsp;<img class="w3-image" th:src="@{~/salle.png}" />&nbsp;&nbsp;&nbsp;[[${salle.nomSalle}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="w3-image" th:src="@{~/chaise.png}" />&Tab;&Tab;&Tab;[[${salle.capacite}]]<div class="w3-display-right"> <span th:onclick="|modifierSalle('${salle.nomSalle}','${salle.capacite}','${salle.id}')|" class="w3-button w3-transparent"><img class="w3-image" th:src="@{~/edit.png}" /></span><span th:onclick="|supprimerSalle('${salle.id}')|"  class="w3-button w3-transparent "><img class="w3-image" th:src="@{~/delete.png}" /></span></div>
+                    </ul>
+                    <br>
+                    
+                    <h6 class="w3-border-bottom w3-border-blue-gray"></h6>
+                    
+                    <br/>
+                </header>
+                <form id="reserver_salle_form" class="w3-margin" method="POST">
+                    <p><input class="w3-input w3-light-gray  w3-margin-left  w3-padding-16" style="width: 95%;" id="nomSalleAdd" type="text" required placeholder="Nom de la Salle"> </p>
+                    <p><input class="w3-input w3-light-gray w3-margin-left  w3-padding-16" style="width: 95%;" id="capaciteSalleAdd" type="number" required placeholder="Capacité de la Salle" ></p>
+                    <br/>
+                    <p><button id="addSalleButton" onclick="addSalle()" class="w3-button w3-blue-grey w3-section" >Ajouter Salle</button></p>
+                </form>
+            </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+            <div id="updateSalleForm" class="w3-modal ">
+                
+                <div id="salleList" class="w3-container w3-blue-gray w3-padding w3-text-light-grey w3-modal-content">
+                   
+                        
+                    <input class="w3-input" id="idSalle" hidden type="hidden" />
+                    <br>
+                    <label class="w3-text-light-grey" for="nomSalle"> Nom Salle : </label> <input class="w3-input w3-text-light-grey" id="nomSalle" placeholder="nom de la salle" />
+                    <br>
+                    <label class="w3-text-light-grey" for="capacite"> Capacité : </label> <input class="w3-input w3-text-light-grey" id="capacite" placeholder="capacité de la salle"/>
+                    <br>
+                    <button class="w3-button" id="hideUpdateButton"  onclick="document.getElementById('updateSalleForm').style.display = 'none';" >Annuler</button>
+                    <button class="w3-button" id="updateSalleButton" onclick="requestModifierSalle()" >Valider</button>
+                   
+                    
+                    
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <!-- salles section -->
+            
+            <!-- profile section -->
+            <div id="profilesSection" ></div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div  class="w3-container w3-padding-32 w3-card-4" >
+                <header>
+                    <h2 class="w3-text-dark-gray" >Liste des Utilisateur</h2>
+                     <ul id="userListView" class="w3-ul w3-card-4" style="max-height: 500px;overflow:scroll;overflow-y:auto;overflow-x:hidden;">
+                        <input placeholder="rechercher" class=" w3-input " id="searchSalleValue" onkeyup="searchUtilisateur()" />
+                        <li th:each="user : ${users}" class="w3-display-container" >&nbsp;&nbsp;<img class="w3-image" th:src="@{~/salle.png}" />&nbsp;&nbsp;&nbsp;[[${user.username}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="w3-image" th:src="@{~/chaise.png}" />&Tab;&Tab;&Tab;[[${user.email}]]&nbsp;&nbsp;&nbsp;&nbsp;<img class="w3-image" th:src="@{~/chaise.png}" />&Tab;&Tab;&Tab;[[${user.user_Profiles.profile_name}]]<div class="w3-display-right"> <span th:onclick="|modifierUtilisateur('${user.username}','${user.email}','${user.id}')|" class="w3-button w3-transparent"><img class="w3-image" th:src="@{~/edit.png}" /></span><span th:onclick="|supprimerUtilisateur('${user.id}')|"  class="w3-button w3-transparent "><img class="w3-image" th:src="@{~/delete.png}" /></span></div>
+                    </ul>
+                    <br>
+                    
+                    <h6 class="w3-border-bottom w3-border-blue-gray"></h6>
+                    
+                    <br/>
+                </header>
+
+                    <p><input class="w3-input w3-light-gray  w3-margin-left  w3-padding-16" style="width: 95%;" id="nomUserAdd" type="text" required placeholder="Nom d'utilisateur"> </p>
+                    <p><input class="w3-input w3-light-gray w3-margin-left  w3-padding-16" style="width: 95%;" id="emailUserAdd" type="email" required placeholder="Émail" ></p>
+                    <p><input class="w3-input w3-light-gray w3-margin-left  w3-padding-16" style="width: 95%;" id="passwordUserAdd" type="password" required placeholder="mot de passe" ></p>
+                    <p>
+                        <input class="w3-check  w3-margin-left " id="typeUserAdd" type="radio" name="typeUser" required placeholder="Administrateur" value="1"  > Administrateur
+                        <input class="w3-check w3-margin-left" id="typeUserAdd" type="radio" name="typeUser" required placeholder="Enseignant" value="2" > Enseignant
+                    </p>
+                    
+                    <br/>
+                    <p><button id="addSalleButton" onclick="addUser()" class="w3-button w3-blue-grey w3-section" >Ajouter Salle</button></p>
+
+            </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+            <div id="updateSalleForm" class="w3-modal ">
+                
+                <div id="salleList" class="w3-container w3-blue-gray w3-padding w3-text-light-grey w3-modal-content">
+                   
+                        
+                    <input class="w3-input" id="idSalle" hidden type="hidden" />
+                    <br>
+                    <label class="w3-text-light-grey" for="nomSalle"> Nom Salle : </label> <input class="w3-input w3-text-light-grey" id="nomSalle" placeholder="nom de la salle" />
+                    <br>
+                    <label class="w3-text-light-grey" for="capacite"> Capacité : </label> <input class="w3-input w3-text-light-grey" id="capacite" placeholder="capacité de la salle"/>
+                    <br>
+                    <button class="w3-button" id="hideUpdateButton"  onclick="document.getElementById('updateSalleForm').style.display = 'none';" >Annuler</button>
+                    <button class="w3-button" id="updateSalleButton" onclick="requestModifierSalle()" >Valider</button>
+                   
+                    
+                    
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <!-- salles section -->
+            
+            </div>
+                
+
+       
+            <!-- End page content -->
+        </div>
+            <br/>
+            <br/>
+            <br/>
+        <script type="text/javascript" th:src="@{~/cdnjs.cloudflare.com_ajax_libs_jquery_2.1.3_jquery.min.js}"></script>
+
+        <script type="text/javascript" th:src="@{~/js/admin_page.js}"></script>
+        
+
+    </body>
+</html>

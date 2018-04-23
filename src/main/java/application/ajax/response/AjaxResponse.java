@@ -5,6 +5,8 @@
  */
 package application.ajax.response;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author taleb
@@ -15,6 +17,7 @@ package application.ajax.response;
  * on peu meme ajouter du traitement coté client selon la reponse du serveur
  * 
  */
+@Component
 public class AjaxResponse {
     
     private String answer; // un message qui nous aidera a comprendre la nature de la reponse

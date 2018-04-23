@@ -7,6 +7,7 @@ package application.controller.reservation;
 
 import application.ajax.response.AjaxResponse;
 import application.controller.login.LoginController;
+import application.model.login.User;
 import application.model.reservation.Reservation;
 import application.model.salle.Salle;
 import application.repositories.login.ReservationRepository;
@@ -14,6 +15,7 @@ import application.repositories.login.SalleRepository;
 import application.service.mail.ContactMail;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +40,8 @@ public class ReservationController {
             @Autowired
             private ReservationRepository reservationRepository;
             
+            @Autowired
+            private HttpSession httpSession;
             
             //ici on va rechercher tout les salle disponible dans entre les date volu du clien
             @RequestMapping(value = "/reservation/search", method = RequestMethod.POST)
@@ -45,6 +49,8 @@ public class ReservationController {
 
                 try {
 
+                    System.out.println("current user : "+(User)httpSession.getAttribute("current_user"));
+                    
                     System.out.println(searchReserv);
                     
                     ArrayList<ReservationSearchResponse> response = new ArrayList<>();

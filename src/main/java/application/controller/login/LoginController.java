@@ -9,6 +9,11 @@ import application.form.adapter.login.UserForm;
 import application.model.login.Profile;
 import application.model.login.ProfileType;
 import application.model.login.User;
+import application.model.reservation.Reservation;
+import application.model.salle.Salle;
+import application.repositories.login.LoginRepository;
+import application.repositories.login.ProfileRepository;
+import application.repositories.login.ReservationRepository;
 import application.repositories.login.SalleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import application.service.login.LoginService;
 import application.service.login.LoginServiceImpl;
 import application.service.mail.ContactMail;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
@@ -39,6 +47,9 @@ public class LoginController {
     //initialisation de la variable login_error_message par le contenu de login.error.message
     @Value("${login.error.message}")
     private String login_error_message;
+    
+    @Autowired
+    private HttpSession httpSession;
     
     @Value("${register.error.message}")
     private String register_error_message;
@@ -69,6 +80,15 @@ public class LoginController {
         return "login/index";
     }
 
+    @Autowired
+    private ReservationRepository reservationRepository;
+    
+    @Autowired
+    private ProfileRepository profileRepository;
+    
+    @Autowired
+    private LoginRepository loginRepository;
+    
     // la methode qui va gerer la connexion
     @RequestMapping(path = "/login/connect",method = RequestMethod.POST)
     public String doLogin(UserForm userForm,Model model){
@@ -82,10 +102,32 @@ public class LoginController {
             model.addAttribute("login_error_message",login_error_message);//preparé le message d erreur pour la page
             return "/login/index";// rediriger vers la meme page mais cette fois avec un message d erreur en plus
         }else{//connexion reussie
+            if(connected.getUser_Profiles() ==null){
             final Profile profile = new Profile();
             profile.setProfileType(ProfileType.ENSEIGNANT);
+            profileRepository.save(profile);
             connected.setUser_Profiles(profile);
-            
+            loginRepository.save(connected);
+            }else{
+                if(connected.getUser_Profiles().getProfileType() == ProfileType.ADMIN ){
+                    
+                    List<Salle> salles = salleRepository.findAll();
+                    model.addAttribute("salles", salles);// envoyé l'utilisateur en cours a la nouvelle page
+                    
+                    List<User> users = loginRepository.findAll();
+                    model.addAttribute("users", users);// envoyé l'utilisateur en cours a la nouvelle page
+                    
+                    List<Reservation> reservations = reservationRepository.findAll();
+                    model.addAttribute("reservations", reservations);// envoyé l'utilisateur en cours a la nouvelle page
+                    
+                    httpSession.setAttribute("current_user", connected);
+                    model.addAttribute("current_user", connected);// envoyé l'utilisateur en cours a la nouvelle page
+                    
+                    return "/admin/admin_page";// redirection vers la page d acceuil start_page.html
+                    
+                }
+            }
+            httpSession.setAttribute("current_user", connected);
             model.addAttribute("contactMail", new ContactMail());// envoyé l'utilisateur en cours a la nouvelle page
             model.addAttribute("current_user", connected);// envoyé l'utilisateur en cours a la nouvelle page
             return "/home/start_page";// redirection vers la page d acceuil start_page.html
@@ -114,7 +156,9 @@ public class LoginController {
         }else{
             final Profile profile = new Profile();
             profile.setProfileType(ProfileType.ENSEIGNANT);
+            profileRepository.save(profile);
             connected.setUser_Profiles(profile);
+            loginRepository.save(connected);
             
             model.addAttribute("salles", salleRepository.findAll() );// envoyé l'utilisateur en cours a la nouvelle page
             model.addAttribute("contactMail", new ContactMail());// envoyé l'utilisateur en cours a la nouvelle page

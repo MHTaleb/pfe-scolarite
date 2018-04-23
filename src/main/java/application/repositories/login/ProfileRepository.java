@@ -6,14 +6,16 @@
 package application.repositories.login;
 
 import application.model.login.Profile;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author taleb
  */
+@Component
 @Repository
-public interface ProfileRepository extends CrudRepository<Profile, Long>{
+public interface ProfileRepository extends JpaRepository<Profile, Long>{
     
 }

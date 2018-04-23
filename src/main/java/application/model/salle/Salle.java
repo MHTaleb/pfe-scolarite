@@ -7,12 +7,14 @@ package application.model.salle;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -41,7 +43,7 @@ import javax.persistence.NamedQuery;
   @NamedQuery(name = "Salle.findByNomSalle" ,query = "SELECT e FROM Salle e WHERE e.nomSalle LIKE '%:nomSalle%'"),  
   @NamedQuery(name = "Salle.findByDisponibilite" ,query = "SELECT e FROM Salle e WHERE e NOT IN (SELECT r.salle from Reservation r WHERE (:dateDebut BETWEEN r.dateDebut  AND r.dateFin ) OR ( :dateFin  BETWEEN r.dateDebut AND r.dateFin) )")  
 })
-
+@Component
 @Entity
 public class Salle implements Serializable  {
 
@@ -50,6 +52,7 @@ public class Salle implements Serializable  {
     private Long id;
     
     @Basic
+    @Column(unique = true)
     private String nomSalle;
     
     @Basic

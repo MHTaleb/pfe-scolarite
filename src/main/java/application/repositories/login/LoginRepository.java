@@ -7,7 +7,7 @@ package application.repositories.login;
 
 import application.model.login.User;
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,12 +20,15 @@ import org.springframework.stereotype.Repository;
  * 
  */
 @Repository
-public interface LoginRepository extends CrudRepository<User, Long>{
+public interface LoginRepository extends JpaRepository<User, Long>{
     /**
      * pour se servir d une requete nomé il suffit de creer une methode avec le mem nom de la requete
      * pour les paramaitre de la requete il suffit d ajouter @Param pour indiquer que la variable ets 
      * lié a quel paramaitre de la requete
      * 
+     * @param username
+     * @param password
+     * @return 
      * @NamedQuery(
             name = "User.findByCredential", 
             query = " SELECT e FROM user_table e LEFT JOIN FETCH e.user_Profiles 
