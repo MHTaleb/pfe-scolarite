@@ -154,9 +154,7 @@ public class LoginController {
             model.addAttribute("register_error_message",register_error_message);// ajouter un message d erreur
             return "/login/index";// index.html
         }else{
-            final Profile profile = new Profile();
-            profile.setProfileType(ProfileType.ENSEIGNANT);
-            profileRepository.save(profile);
+            final Profile profile = profileRepository.getOne(Long.valueOf(2));
             connected.setUser_Profiles(profile);
             loginRepository.save(connected);
             

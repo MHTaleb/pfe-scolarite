@@ -1,11 +1,20 @@
 package application;
 
+import application.model.login.Profile;
+import application.model.login.ProfileType;
+import application.model.login.User;
+import application.repositories.login.LoginRepository;
+import application.repositories.login.ProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
 public class ApplicationLauncher {
+
+    
+    
     public static void main(String[] args) {
         
         
@@ -21,5 +30,7 @@ public class ApplicationLauncher {
          * 
          */
         SpringApplication.run(ApplicationLauncher.class, args);
-    }
+  
+        
+        }
 }
